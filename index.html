@@ -62,7 +62,7 @@
 	// This function is run whenever the user presses a key.
 	
 	document.onkeyup = function(event) {
-	if (userGuess < 1) { event.preventDefault(); }
+	if (guessesRemaining < 1) { return; }
 	
 	// Determines which key was pressed.
 	var userGuess = event.key.toLowerCase();
@@ -84,7 +84,6 @@
 				else { //else, reduce guessesRemaining by one 
 					guessesRemaining--; 
 					guessesLeftText.textContent = guessesRemaining;
-					if (guessesRemaining < 1) {return; }//end the game
 				}
 			}
 	}
