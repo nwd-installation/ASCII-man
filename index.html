@@ -20,11 +20,14 @@
 	
 	<script type="text/javascript">
   
-	var directionsText = document.getElementById("directions-text");
-	var winsText = document.getElementById("wins-text");
-	var guessesLeftText = document.getElementById("guesses-left");
-	var lettersGuessedText = document.getElementById("letters-guessed");
-	var currentWordText = document.getElementById("current-word");
+  var textElements = {
+	directionsText : document.getElementById("directions-text"),
+	winsText : document.getElementById("wins-text"),
+	guessesLeftText : document.getElementById("guesses-left"),
+	lettersGuessedText : document.getElementById("letters-guessed"),
+	currentWordText : document.getElementById("current-word"),
+	} ;
+	
 	var words = [
 	"misanthrope",
 	"meander",
@@ -40,13 +43,13 @@
 	
 	var currentWordIndex = 0;
 	
-	var guessesRemaining = 5; guessesLeftText.textContent = guessesRemaining;
-	var wins = 0; winsText.textContent = wins ;
-	var lettersGuessed = []; if (lettersGuessed.length == 0) {lettersGuessedText.textContent = "none"} else {lettersGuessedText.textContent = lettersGuessed;};
+	var guessesRemaining = 5; textElements.guessesLeftText.textContent = guessesRemaining;
+	var wins = 0; textElements.winsText.textContent = wins ;
+	var lettersGuessed = []; textElements.lettersGuessedText.textContent = "none";
 	
 	var currentWord = words[currentWordIndex];
 	for (var revealedWord = ""; revealedWord.length < currentWord.length ; revealedWord += '_') {} ;
-	currentWordText.textContent = revealedWord;
+	textElements.currentWordText.textContent = revealedWord;
 	
 	
 	function getAllIndexes(arr, val) {
@@ -71,29 +74,29 @@
 		if (!lettersGuessed.includes(userGuess)) //userGuess not in lettersGuessed
 			{
 				lettersGuessed.push(userGuess); //add userGuess to letters guessed
-				lettersGuessedText.textContent = lettersGuessed;
+				textElements.lettersGuessedText.textContent = lettersGuessed;
 				if (currentWord.includes(userGuess)) { //check if userguess is in the current word
 					var ind = getAllIndexes(currentWord, userGuess) ;
 					for (var x = 0; x < ind.length; x++) {
 						var newstr = revealedWord.substr(0,ind[x]) + userGuess + revealedWord.substr(ind[x]+1,revealedWord.length-1);
 						revealedWord = newstr;
 					}
-					currentWordText.textContent = revealedWord;
+					textElements.currentWordText.textContent = revealedWord;
 					if (revealedWord === currentWord) { 
 						if (currentWordIndex === words.length - 1) { currentWordIndex = 0; }
 						else { currentWordIndex++; }
 						currentWord = words[currentWordIndex];
 						for (revealedWord = ""; revealedWord.length < currentWord.length ; revealedWord += '_') {} ;
-						currentWordText.textContent = revealedWord;
-						lettersGuessed = []; lettersGuessedText.textContent = "none";
-						wins++; winsText.textContent = wins ;
-						guessesRemaining = 5; guessesLeftText.textContent = guessesRemaining;
+						textElements.currentWordText.textContent = revealedWord;
+						lettersGuessed = []; textElements.lettersGuessedText.textContent = "none";
+						wins++; textElements.winsText.textContent = wins ;
+						guessesRemaining = 5; textElements.guessesLeftText.textContent = guessesRemaining;
 						
 					}
 				}
 				else { //else, reduce guessesRemaining by one 
 					guessesRemaining--; 
-					guessesLeftText.textContent = guessesRemaining;
+					textElements.guessesLeftText.textContent = guessesRemaining;
 				}
 			}
 	}
