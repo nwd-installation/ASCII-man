@@ -20,37 +20,45 @@
 	
 	<script type="text/javascript">
   
-  var textElements = {
+var textElements = {
 	directionsText : document.getElementById("directions-text"),
 	winsText : document.getElementById("wins-text"),
 	guessesLeftText : document.getElementById("guesses-left"),
 	lettersGuessedText : document.getElementById("letters-guessed"),
 	currentWordText : document.getElementById("current-word"),
-	} ;
+};  
 	
-	var words = [
-	"misanthrope",
-	"meander",
-	"lycanthropy",
-	"vertigo",
-	"chillblains",
-	"homonculous",
-	"wendigo",
-	"datura",
-	"mitre",
-	"scramples"
-	] ;
+var game = {
 	
-	var currentWordIndex = 0;
+	words : [
+		"misanthrope",
+		"meander",
+		"lycanthropy",
+		"vertigo",
+		"chillblains",
+		"homonculous",
+		"wendigo",
+		"datura",
+		"mitre",
+		"scramples"
+	],
 	
-	var guessesRemaining = 5; textElements.guessesLeftText.textContent = guessesRemaining;
-	var wins = 0; textElements.winsText.textContent = wins ;
-	var lettersGuessed = []; textElements.lettersGuessedText.textContent = "none";
+	currentWordIndex : 0,
+	guessesRemaining : 5,
+	wins : 0,
+	lettersGuessed : [],
+	currentWord : "",
+	revealedWord : "",
 	
-	var currentWord = words[currentWordIndex];
-	for (var revealedWord = ""; revealedWord.length < currentWord.length ; revealedWord += '_') {} ;
-	textElements.currentWordText.textContent = revealedWord;
+	initializeValues : function() {
+		this.guessesRemaining = 5; textElements.guessesLeftText.textContent = this.guessesRemaining;
+		this.wins = 0; textElements.winsText.textContent = this.wins ;
+		this.lettersGuessed = []; textElements.lettersGuessedText.textContent = "none";
+		this.currentWord = this.words[this.currentWordIndex];
+		for (this.revealedWord = ""; this.revealedWord.length < this.currentWord.length ; this.revealedWord += '_') {textElements.currentWordText.textContent = this.revealedWord;} ;
+	}
 	
+};
 	
 	function getAllIndexes(arr, val) {
     var indexes = [];	
@@ -59,44 +67,42 @@
 	}
 	return indexes;
 }
-	
-	//outer while loop condition is while guessesRemaining is greater than zero
-	
-	// This function is run whenever the user presses a key.
-	
+
+
+	game.initializeValues();
 	document.onkeyup = function(event) {
-	if (guessesRemaining < 1) { return; }
+	if (game.guessesRemaining < 1) { return; }
 	
 	// Determines which key was pressed.
 	var userGuess = event.key.toLowerCase();
 	
 	if ("abcdefghijklmnopqrstuvwxyz".includes(userGuess)) {
-		if (!lettersGuessed.includes(userGuess)) //userGuess not in lettersGuessed
+		if (!game.lettersGuessed.includes(userGuess)) //userGuess not in lettersGuessed
 			{
-				lettersGuessed.push(userGuess); //add userGuess to letters guessed
-				textElements.lettersGuessedText.textContent = lettersGuessed;
-				if (currentWord.includes(userGuess)) { //check if userguess is in the current word
-					var ind = getAllIndexes(currentWord, userGuess) ;
+				game.lettersGuessed.push(userGuess); //add userGuess to letters guessed
+				textElements.lettersGuessedText.textContent = game.lettersGuessed;
+				if (game.currentWord.includes(userGuess)) { //check if userguess is in the current word
+					var ind = getAllIndexes(game.currentWord, userGuess) ;
 					for (var x = 0; x < ind.length; x++) {
-						var newstr = revealedWord.substr(0,ind[x]) + userGuess + revealedWord.substr(ind[x]+1,revealedWord.length-1);
-						revealedWord = newstr;
+						var newstr = game.revealedWord.substr(0,ind[x]) + userGuess + game.revealedWord.substr(ind[x]+1,game.revealedWord.length-1);
+						game.revealedWord = newstr;
 					}
-					textElements.currentWordText.textContent = revealedWord;
-					if (revealedWord === currentWord) { 
-						if (currentWordIndex === words.length - 1) { currentWordIndex = 0; }
-						else { currentWordIndex++; }
-						currentWord = words[currentWordIndex];
-						for (revealedWord = ""; revealedWord.length < currentWord.length ; revealedWord += '_') {} ;
-						textElements.currentWordText.textContent = revealedWord;
-						lettersGuessed = []; textElements.lettersGuessedText.textContent = "none";
-						wins++; textElements.winsText.textContent = wins ;
-						guessesRemaining = 5; textElements.guessesLeftText.textContent = guessesRemaining;
+					textElements.currentWordText.textContent = game.revealedWord;
+					if (game.revealedWord === game.currentWord) { 
+						if (game.currentWordIndex === game.words.length - 1) {game.currentWordIndex = 0; }
+						else {game.currentWordIndex++; }
+						game.currentWord = game.words[game.currentWordIndex];
+						for (game.revealedWord = ""; game.revealedWord.length < game.currentWord.length ; game.revealedWord += '_') {} ;
+						textElements.currentWordText.textContent = game.revealedWord;
+						game.lettersGuessed = []; textElements.lettersGuessedText.textContent = "none";
+						game.wins++; textElements.winsText.textContent = game.wins ;
+						game.guessesRemaining = 5; textElements.guessesLeftText.textContent = game.guessesRemaining;
 						
 					}
 				}
 				else { //else, reduce guessesRemaining by one 
-					guessesRemaining--; 
-					textElements.guessesLeftText.textContent = guessesRemaining;
+					game.guessesRemaining--; 
+					textElements.guessesLeftText.textContent = game.guessesRemaining;
 				}
 			}
 	}
