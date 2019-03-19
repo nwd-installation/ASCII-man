@@ -91,11 +91,10 @@ var game = {
 	game.initializeValues();
 	document.onkeyup = function(event) {
 	if (game.over) return; // end game
-	// Determines which key was pressed.
-	var userGuess = event.key.toLowerCase();
+	var userGuess = event.key.toLowerCase(); // Determines which key was pressed.
 	
-	if ("abcdefghijklmnopqrstuvwxyz".includes(userGuess)) {
-		if (!game.lettersGuessed.includes(userGuess)) //userGuess not in lettersGuessed
+	if ("abcdefghijklmnopqrstuvwxyz".includes(userGuess)) {  //then the keypress was a letter
+		if (!game.lettersGuessed.includes(userGuess) && !game.revealedWordArray.includes(userGuess)) //userGuess not in lettersGuessed or revealedWordArray
 			{
 				var ind = getAllIndexes(game.currentWord, userGuess) ; //check if userguess is in the current word
 				if (ind.length != 0) {  //then it is in current word
