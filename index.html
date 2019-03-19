@@ -48,14 +48,28 @@ var game = {
 	wins : 0,
 	lettersGuessed : [],
 	currentWord : "",
-	revealedWord : "",
+	revealedWordArray : [],
 	
 	initializeValues : function() {
 		this.guessesRemaining = 5; textElements.guessesLeftText.textContent = this.guessesRemaining;
 		this.wins = 0; textElements.winsText.textContent = this.wins ;
 		this.lettersGuessed = []; textElements.lettersGuessedText.textContent = "none";
 		this.currentWord = this.words[this.currentWordIndex];
-		for (this.revealedWord = ""; this.revealedWord.length < this.currentWord.length ; this.revealedWord += '_') {textElements.currentWordText.textContent = this.revealedWord;} ;
+		for (this.revealedWordArray = []; this.revealedWordArray.length < this.currentWord.length ; this.revealedWordArray.push('_')) {} ;
+		this.updateDisplayedRevealedWord();
+	},
+	
+	updateRevealedWordArray : function(x, y) {
+	this.revealedWordArray[x] = y;
+	},
+	
+	updateDisplayedRevealedWord : function () {
+		textElements.currentWordText.textContent = "";
+		for (var i = 0; i < this.revealedWordArray.length; i++)
+		{
+			textElements.currentWordText.textContent += " ";
+			textElements.currentWordText.textContent += game.revealedWordArray[i];
+		}
 	}
 	
 };
@@ -71,7 +85,10 @@ var game = {
 
 	game.initializeValues();
 	document.onkeyup = function(event) {
-	if (game.guessesRemaining < 1) { return; } //put a message here like GAME OVER
+	if (game.guessesRemaining < 1) {
+		textElements.directionsText.textContent = "Game Over. Thanks for playing!";
+		return; //end game
+	}
 	
 	// Determines which key was pressed.
 	var userGuess = event.key.toLowerCase();
@@ -84,11 +101,10 @@ var game = {
 				if (game.currentWord.includes(userGuess)) { //check if userguess is in the current word
 					var ind = getAllIndexes(game.currentWord, userGuess) ;
 					for (var x = 0; x < ind.length; x++) {
-						var newstr = game.revealedWord.substr(0,ind[x]) + userGuess + game.revealedWord.substr(ind[x]+1,game.revealedWord.length-1);
-						game.revealedWord = newstr;
+						game.updateRevealedWordArray(ind[x], userGuess);
 					}
-					textElements.currentWordText.textContent = game.revealedWord;
-					if (game.revealedWord === game.currentWord) { 
+					game.updateDisplayedRevealedWord();
+					if (!game.revealedWordArray.includes('_')) { // new function here: randomizecurrentword for random new word
 						if (game.currentWordIndex === game.words.length - 1) {game.currentWordIndex = 0; }
 						else {game.currentWordIndex++; }
 						game.initializeValues();
