@@ -71,7 +71,7 @@ var game = {
 
 	game.initializeValues();
 	document.onkeyup = function(event) {
-	if (game.guessesRemaining < 1) { return; }
+	if (game.guessesRemaining < 1) { return; } //put a message here like GAME OVER
 	
 	// Determines which key was pressed.
 	var userGuess = event.key.toLowerCase();
@@ -91,13 +91,7 @@ var game = {
 					if (game.revealedWord === game.currentWord) { 
 						if (game.currentWordIndex === game.words.length - 1) {game.currentWordIndex = 0; }
 						else {game.currentWordIndex++; }
-						game.currentWord = game.words[game.currentWordIndex];
-						for (game.revealedWord = ""; game.revealedWord.length < game.currentWord.length ; game.revealedWord += '_') {} ;
-						textElements.currentWordText.textContent = game.revealedWord;
-						game.lettersGuessed = []; textElements.lettersGuessedText.textContent = "none";
-						game.wins++; textElements.winsText.textContent = game.wins ;
-						game.guessesRemaining = 5; textElements.guessesLeftText.textContent = game.guessesRemaining;
-						
+						game.initializeValues();
 					}
 				}
 				else { //else, reduce guessesRemaining by one 
