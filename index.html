@@ -50,7 +50,7 @@
 	
 	
 	function getAllIndexes(arr, val) {
-    var indexes = [];
+    var indexes = [];	
     for(var i = 0; i < arr.length; i++) {
         if (arr[i] === val) { indexes.push(i); }
 	}
@@ -79,7 +79,17 @@
 						revealedWord = newstr;
 					}
 					currentWordText.textContent = revealedWord;
-					if (revealedWord === currentWord) { console.log("Print: you win! Press any key to try another word"); }
+					if (revealedWord === currentWord) { 
+						if (currentWordIndex === words.length - 1) { currentWordIndex = 0; }
+						else { currentWordIndex++; }
+						currentWord = words[currentWordIndex];
+						for (revealedWord = ""; revealedWord.length < currentWord.length ; revealedWord += '_') {} ;
+						currentWordText.textContent = revealedWord;
+						lettersGuessed = []; lettersGuessedText.textContent = "none";
+						wins++; winsText.textContent = wins ;
+						guessesRemaining = 5; guessesLeftText.textContent = guessesRemaining;
+						
+					}
 				}
 				else { //else, reduce guessesRemaining by one 
 					guessesRemaining--; 
