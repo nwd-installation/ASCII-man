@@ -11,7 +11,7 @@
 </head>
 <body>
 	<div>
-		<p id="directions-text">Press any key to get started!</p>
+		<p id="directions-text">Press a letter to fill in the word below.</p>
 		<p>Wins: <span id ="wins-text"></span></p>
 		<p>Number of Guesses Remaining: <span id="guesses-left"></span></p>
 		<p>Letters Already Guessed: <span id="letters-guessed"></span></p>
@@ -49,12 +49,13 @@ var game = {
 	lettersGuessed : [],
 	currentWord : "",
 	revealedWordArray : [],
+	over : false,
 	
 	initializeValues : function() {
 		this.guessesRemaining = 5; textElements.guessesLeftText.textContent = this.guessesRemaining;
 		this.wins = 0; textElements.winsText.textContent = this.wins ;
 		this.lettersGuessed = []; textElements.lettersGuessedText.textContent = "none";
-		this.currentWord = this.words[this.currentWordIndex];
+		this.randomizeCurrentWord();
 		for (this.revealedWordArray = []; this.revealedWordArray.length < this.currentWord.length ; this.revealedWordArray.push('_')) {} ;
 		this.updateDisplayedRevealedWord();
 	},
@@ -70,6 +71,10 @@ var game = {
 			textElements.currentWordText.textContent += " ";
 			textElements.currentWordText.textContent += game.revealedWordArray[i];
 		}
+	},
+	
+	randomizeCurrentWord : function() {
+		this.currentWord = this.words[Math.floor(Math.random() * this.words.length)];
 	}
 	
 };
@@ -85,34 +90,33 @@ var game = {
 
 	game.initializeValues();
 	document.onkeyup = function(event) {
-	if (game.guessesRemaining < 1) {
-		textElements.directionsText.textContent = "Game Over. Thanks for playing!";
-		return; //end game
-	}
-	
+	if (game.over) return; // end game
 	// Determines which key was pressed.
 	var userGuess = event.key.toLowerCase();
 	
 	if ("abcdefghijklmnopqrstuvwxyz".includes(userGuess)) {
 		if (!game.lettersGuessed.includes(userGuess)) //userGuess not in lettersGuessed
 			{
-				game.lettersGuessed.push(userGuess); //add userGuess to letters guessed
-				textElements.lettersGuessedText.textContent = game.lettersGuessed;
-				if (game.currentWord.includes(userGuess)) { //check if userguess is in the current word
-					var ind = getAllIndexes(game.currentWord, userGuess) ;
+				var ind = getAllIndexes(game.currentWord, userGuess) ; //check if userguess is in the current word
+				if (ind.length != 0) {  //then it is in current word
 					for (var x = 0; x < ind.length; x++) {
 						game.updateRevealedWordArray(ind[x], userGuess);
 					}
 					game.updateDisplayedRevealedWord();
-					if (!game.revealedWordArray.includes('_')) { // new function here: randomizecurrentword for random new word
-						if (game.currentWordIndex === game.words.length - 1) {game.currentWordIndex = 0; }
-						else {game.currentWordIndex++; }
+					if (!game.revealedWordArray.includes('_')) {
+						textElements.directionsText.textContent = "Congratulations! Can you guess this one?";
 						game.initializeValues();
 					}
 				}
-				else { //else, reduce guessesRemaining by one 
-					game.guessesRemaining--; 
+				else {
+					game.lettersGuessed.push(userGuess); //add userGuess to letters guessed
+					textElements.lettersGuessedText.textContent = game.lettersGuessed;
+					game.guessesRemaining--; //reduce guessesRemaining by one 
 					textElements.guessesLeftText.textContent = game.guessesRemaining;
+					if (game.guessesRemaining < 1) {
+						textElements.directionsText.textContent = "Game Over. Thanks for playing!";
+					game.over = true; //end game
+					}
 				}
 			}
 	}
