@@ -8,8 +8,11 @@
 	
 <!--	<link rel="stylesheet" href="./assets/css/reset.css">
 		<link rel="stylesheet" href="./assets/css/style.css"> -->
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
+<header></header>
+
 	<div>
 		<p id="directions-text">Press a letter to fill in the word below.</p>
 		<p>Wins: <span id ="wins-text"></span></p>
@@ -30,7 +33,7 @@ var textElements = {
 	
 var game = {
 	
-	words : [
+	words : [ // may want to create hint words as well
 		"misanthrope",
 		"meander",
 		"lycanthropy",
@@ -53,7 +56,7 @@ var game = {
 	
 	initializeValues : function() {
 		this.guessesRemaining = 5; textElements.guessesLeftText.textContent = this.guessesRemaining;
-		this.wins = 0; textElements.winsText.textContent = this.wins ;
+		textElements.winsText.textContent = this.wins ;
 		this.lettersGuessed = []; textElements.lettersGuessedText.textContent = "none";
 		this.randomizeCurrentWord();
 		for (this.revealedWordArray = []; this.revealedWordArray.length < this.currentWord.length ; this.revealedWordArray.push('_')) {} ;
@@ -94,7 +97,7 @@ var game = {
 	var userGuess = event.key.toLowerCase(); // Determines which key was pressed.
 	
 	if ("abcdefghijklmnopqrstuvwxyz".includes(userGuess)) {  //then the keypress was a letter
-		if (!game.lettersGuessed.includes(userGuess) && !game.revealedWordArray.includes(userGuess)) //userGuess not in lettersGuessed or revealedWordArray
+		if (!game.lettersGuessed.includes(userGuess) && !game.revealedWordArray.includes(userGuess)) //userGuess isn't in either lettersGuessed or revealedWordArray
 			{
 				var ind = getAllIndexes(game.currentWord, userGuess) ; //check if userguess is in the current word
 				if (ind.length != 0) {  //then it is in current word
@@ -103,6 +106,7 @@ var game = {
 					}
 					game.updateDisplayedRevealedWord();
 					if (!game.revealedWordArray.includes('_')) {
+						game.wins++;
 						textElements.directionsText.textContent = "Congratulations! Can you guess this one?";
 						game.initializeValues();
 					}
