@@ -18,7 +18,8 @@
 		<p>Wins: <span id ="wins-text"></span></p>
 		<p>Number of Guesses Remaining: <span id="guesses-left"></span></p>
 		<p>Letters Already Guessed: <span id="letters-guessed"></span></p>
-		<p>Current Word Text: <span style="letter-spacing:absolute;" id="current-word"></span></p>
+		<p>Current Word:<br /><span id="current-word"></span></p>
+		<p>Hint: <span id="hint"></span></p>
 	</div>
 	
 	<script type="text/javascript">
@@ -29,6 +30,7 @@ var textElements = {
 	guessesLeftText : document.getElementById("guesses-left"),
 	lettersGuessedText : document.getElementById("letters-guessed"),
 	currentWordText : document.getElementById("current-word"),
+	hintText : document.getElementById("hint")
 };  
 	
 var game = {
@@ -45,6 +47,19 @@ var game = {
 		"mitre",
 		"scramples"
 	],
+	
+	hints : [
+		"doesn't play well with others",
+		"rivers do this",
+		"werewolf syndrome",
+		"an inner-ear condition and a classic Hitchcock thriller",
+		"I don't know what this is",
+		"latin for \"little man\"",
+		"a mythical native American cannibal beast",
+		"a hallucinagenic fruit",
+		"pope hat",
+		"not a real word"
+		],
 	
 	currentWordIndex : 0,
 	guessesRemaining : 5,
@@ -77,8 +92,9 @@ var game = {
 	},
 	
 	randomizeCurrentWord : function() {
-		this.currentWord = this.words[Math.floor(Math.random() * this.words.length)];
-	}
+		var index = Math.floor(Math.random() * this.words.length);
+		this.currentWord = this.words[index];
+		textElements.hintText.textContent = this.hints[index] ;	}
 	
 };
 	
