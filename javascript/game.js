@@ -80,14 +80,13 @@ var game = {
 }
 
 
-	game.initializeValues();
-	document.onkeyup = function(event) {
+game.initializeValues();
+document.onkeyup = function(event) {
 	if (game.over) return; // end game
 	var userGuess = event.key.toLowerCase(); // Determines which key was pressed.
 	
 	if ("abcdefghijklmnopqrstuvwxyz".includes(userGuess)) {  //then the keypress was a letter
-		if (!game.lettersGuessed.includes(userGuess) && !game.revealedWordArray.includes(userGuess)) //userGuess isn't in either lettersGuessed or revealedWordArray
-			{
+		if (!game.lettersGuessed.includes(userGuess) && !game.revealedWordArray.includes(userGuess)) { //userGuess isn't in either lettersGuessed or revealedWordArray
 				var ind = getAllIndexes(game.currentWord, userGuess) ; //check if userguess is in the current word
 				if (ind.length != 0) {  //then it is in current word
 					for (var x = 0; x < ind.length; x++) {
@@ -107,9 +106,9 @@ var game = {
 					textElements.guessesLeftText.textContent = game.guessesRemaining;
 					if (game.guessesRemaining < 1) {
 						textElements.directionsText.textContent = "Game Over. Thanks for playing!";
-					game.over = true; //end game
+						game.over = true; //end game
 					}
 				}
-			}
+		}
 	}
 }
