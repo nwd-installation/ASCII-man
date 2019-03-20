@@ -35,7 +35,6 @@ var game = {
 		"not a real word"
 		],
 	
-	currentWordIndex : 0,
 	guessesRemaining : 5,
 	wins : 0,
 	lettersGuessed : [],
