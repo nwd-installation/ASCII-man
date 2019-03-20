@@ -25,7 +25,7 @@ h1 {
 #legs {
 
 /* Safari */
--webkit-transform: rotate(90deg);
+-webkit-transform: rotate(90deg) translateX(5px) translateY(-4px);
 
 /* Firefox */
 -moz-transform: rotate(90deg);
@@ -35,6 +35,44 @@ h1 {
 
 /* Opera */
 -o-transform: rotate(90deg);
+
+/* Internet Explorer */
+filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+
+}
+
+#arms {
+
+/* Safari */
+-webkit-transform: rotate(90deg) translateX(19px) translateY(-4px);
+
+/* Firefox */
+-moz-transform: rotate(90deg);
+
+/* IE */
+-ms-transform: rotate(90deg);
+
+/* Opera */
+-o-transform: rotate(90deg);
+
+/* Internet Explorer */
+filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+
+}
+
+#head {
+
+/* Safari */
+-webkit-transform: translateX(-1px) translateY(19px);
+
+/* Firefox */
+-moz-transform:  translateX(5px) translateY(-4px);
+
+/* IE */
+-ms-transform:  translateX(5px) translateY(-4px);
+
+/* Opera */
+-o-transform:  translateX(5px) translateY(-4px);;
 
 /* Internet Explorer */
 filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
