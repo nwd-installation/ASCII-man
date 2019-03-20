@@ -6,8 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Word Guess Or Else</title>
 	
-<!--	<link rel="stylesheet" href="./assets/css/reset.css">
-		<link rel="stylesheet" href="./assets/css/style.css"> -->
+<!--	<link rel="stylesheet" href="./assets/css/reset.css"> -->
+		<link href="https://fonts.googleapis.com/css?family=VT323" rel="stylesheet">
+		<link rel="stylesheet" href="./assets/style.css"> 
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
@@ -83,12 +84,19 @@ var game = {
 	},
 	
 	updateDisplayedRevealedWord : function () {
+		document.getElementById("current-word").innerHTML = "";
+		for (var i = 0; i < this.revealedWordArray.length; i++) {
+		document.getElementById("current-word").innerHTML += "<span class=\"letterbox\">";
+			document.getElementById("current-word").innerHTML += this.revealedWordArray[i];
+			document.getElementById("current-word").innerHTML += "</span>";
+		}
+	/*
 		textElements.currentWordText.textContent = "";
 		for (var i = 0; i < this.revealedWordArray.length; i++)
 		{
-			textElements.currentWordText.textContent += " ";
+			/* textElements.currentWordText.textContent += " ";
 			textElements.currentWordText.textContent += game.revealedWordArray[i];
-		}
+		} */
 	},
 	
 	randomizeCurrentWord : function() {
@@ -144,5 +152,4 @@ var game = {
   
   </script>  
 </body>
-</html>
 </html>

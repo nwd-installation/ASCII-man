@@ -1,0 +1,13 @@
+.letterbox {
+	padding: 0 5px;
+/*	margin: 0 5px;  */
+	min-width: 1em;
+	text-align: center;
+}
+
+#current-word {
+	display: inline-block;
+	text-align: center;
+	font-family: 'VT323', monospace;
+	font-size: 2em;
+}
