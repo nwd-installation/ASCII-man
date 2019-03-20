@@ -42,13 +42,16 @@ var game = {
 	currentHint : "",
 	revealedWordArray : [],
 	over : false,
+	lastWordIndex : 0,
 	
 	initializeValues : function() {
 		this.guessesRemaining = 5; textElements.guessesLeftText.textContent = this.guessesRemaining;
 		textElements.winsText.textContent = this.wins ;
 		this.lettersGuessed = []; textElements.lettersGuessedText.textContent = "none";
 		this.currentHint = ""; textElements.hintText.textContent = "";
-		currentWordIndex = Math.floor(Math.random() * this.words.length);
+		do {
+			currentWordIndex = Math.floor(Math.random() * this.words.length);
+		} while (currentWordIndex === this.lastWordIndex) ; this.lastWordIndex = currentWordIndex; // this loop prevents seeing the same word twice, and also prevents you from seeing the zeroth word first, because lastWordindex is initialized to zero.
 		this.setCurrentWord(currentWordIndex);
 		for (this.revealedWordArray = []; this.revealedWordArray.length < this.currentWord.length ; this.revealedWordArray.push('_')) {} ;
 		this.updateDisplayedRevealedWord();
