@@ -39,6 +39,7 @@ var game = {
 	wins : 0,
 	lettersGuessed : [],
 	currentWord : "",
+	currentHint : "",
 	revealedWordArray : [],
 	over : false,
 	
@@ -46,7 +47,9 @@ var game = {
 		this.guessesRemaining = 5; textElements.guessesLeftText.textContent = this.guessesRemaining;
 		textElements.winsText.textContent = this.wins ;
 		this.lettersGuessed = []; textElements.lettersGuessedText.textContent = "none";
-		this.randomizeCurrentWord();
+		this.currentHint = ""; textElements.hintText.textContent = "";
+		currentWordIndex = Math.floor(Math.random() * this.words.length);
+		this.setCurrentWord(currentWordIndex);
 		for (this.revealedWordArray = []; this.revealedWordArray.length < this.currentWord.length ; this.revealedWordArray.push('_')) {} ;
 		this.updateDisplayedRevealedWord();
 	},
@@ -64,11 +67,10 @@ var game = {
 		}
 	},
 	
-	randomizeCurrentWord : function() {
-		var index = Math.floor(Math.random() * this.words.length);
-		this.currentWord = this.words[index];
-		textElements.hintText.textContent = this.hints[index] ;	}
-	
+	setCurrentWord : function(x) {
+		this.currentWord = this.words[x];
+		this.currentHint = this.hints[x];
+	}
 };
 	
 	function getAllIndexes(arr, val) {
@@ -82,6 +84,7 @@ var game = {
 
 game.initializeValues();
 document.onkeyup = function(event) {
+	if (event.which == 113) { textElements.hintText.textContent = game.currentHint; }
 	if (game.over) return; // end game
 	var userGuess = event.key.toLowerCase(); // Determines which key was pressed.
 	
