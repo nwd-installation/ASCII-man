@@ -63,13 +63,6 @@ var game = {
 			document.getElementById("current-word").innerHTML += this.revealedWordArray[i];
 			document.getElementById("current-word").innerHTML += "</span>";
 		}
-	/*
-		textElements.currentWordText.textContent = "";
-		for (var i = 0; i < this.revealedWordArray.length; i++)
-		{
-			/* textElements.currentWordText.textContent += " ";
-			textElements.currentWordText.textContent += game.revealedWordArray[i];
-		} */
 	},
 	
 	randomizeCurrentWord : function() {
