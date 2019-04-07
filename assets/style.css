@@ -1,3 +1,11 @@
+.maincon {
+	max-width: 960px;
+}
+
+.leftcol {
+	padding-left: 2em;
+}
+
 .letterbox {
 	padding: 0 5px;
 /*	margin: 0 5px;  */
@@ -23,51 +31,51 @@ h1 {
 }
 
 #gallows1 {
-	transform: translate(-50px, -20px);
+	transform: translate(-20px, -20px);
 }
 
 #gallows2{
-	transform: translate(-90px, -38px);
+	transform: translate(-60px, -38px);
 }
 
 #rope {
-	transform: translate(-6px, -56px);
+	transform: translate(24px, -56px);
 }
 
 #gallows3 {
-	transform: translate(-90px, -100px);
+	transform: translate(-60px, -100px);
 }
 
 #headg {
-	transform: translate(-6px, -100px);
+	transform: translate(24px, -100px);
 }
 
 #gallows4 {
-	transform: translate(-90px, -132px);
+	transform: translate(-60px, -132px);
 }
 
 #arms {
-	transform: translate(-1px, -147px) rotate(90deg);
+	transform: translate(29px, -147px) rotate(90deg);
 }
 
 #gallows5 {
-	transform: translate(-90px, -164px);
+	transform: translate(-60px, -164px);
 }
 
 #torso {
-	transform: translate(-5px, -210px);
+	transform: translate(25px, -210px);
 }
 
 #gallows6 {
-	transform: translate(-90px, -198px);
+	transform: translate(-60px, -198px);
 }
 
 #legs {
-	transform: translate(-1px, -250px) rotate(90deg);
+	transform: translate(29px, -250px) rotate(90deg);
 }
 
 #gallows7 {
-	transform: translate(-70px, -265px);
+	transform: translate(-60px, -265px);
 }
 
 .invisible {
