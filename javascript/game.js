@@ -84,6 +84,12 @@ var game = {
 	return indexes;
 }
 
+var stickManIds = ["legs","torso","arms","headg","rope"];
+
+function drawStickMan(x) {
+	var targetDiv = document.getElementById(stickManIds[x]);
+	if (typeof targetDiv !== "null") targetDiv.classList.remove("invisible");
+}
 
 game.initializeValues();
 document.onkeyup = function(event) {
@@ -110,6 +116,7 @@ document.onkeyup = function(event) {
 					textElements.lettersGuessedText.textContent = game.lettersGuessed;
 					game.guessesRemaining--; //reduce guessesRemaining by one 
 					textElements.guessesLeftText.textContent = game.guessesRemaining;
+					drawStickMan(game.guessesRemaining);
 					if (game.guessesRemaining < 1) {
 						textElements.directionsText.textContent = "Game Over. Thanks for playing!";
 						game.over = true; //end game
