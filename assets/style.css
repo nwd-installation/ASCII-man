@@ -23,51 +23,51 @@ h1 {
 }
 
 #gallows1 {
-	transform: translate(-100px, -20px);
+	transform: translate(-50px, -20px);
 }
 
 #gallows2{
-	transform: translate(-140px, -38px);
+	transform: translate(-90px, -38px);
 }
 
 #rope {
-	transform: translate(-56px, -56px);
+	transform: translate(-6px, -56px);
 }
 
 #gallows3 {
-	transform: translate(-140px, -100px);
+	transform: translate(-90px, -100px);
 }
 
 #headg {
-	transform: translate(-56px, -100px);
+	transform: translate(-6px, -100px);
 }
 
 #gallows4 {
-	transform: translate(-140px, -132px);
+	transform: translate(-90px, -132px);
 }
 
 #arms {
-	transform: translate(-51px, -147px) rotate(90deg);
+	transform: translate(-1px, -147px) rotate(90deg);
 }
 
 #gallows5 {
-	transform: translate(-140px, -164px);
+	transform: translate(-90px, -164px);
 }
 
 #torso {
-	transform: translate(-56px, -210px);
+	transform: translate(-6px, -210px);
 }
 
 #gallows6 {
-	transform: translate(-140px, -198px);
+	transform: translate(-90px, -198px);
 }
 
 #legs {
-	transform: translate(-51px, -250px) rotate(90deg);
+	transform: translate(-1px, -250px) rotate(90deg);
 }
 
 #gallows7 {
-	transform: translate(-120px, -263px);
+	transform: translate(-70px, -263px);
 }
 
 .invisible {
