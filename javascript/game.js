@@ -45,6 +45,7 @@ var game = {
 	lastWordIndex : 0,
 	
 	initializeValues : function() {
+		clearStickMan();
 		this.guessesRemaining = 5; textElements.guessesLeftText.textContent = this.guessesRemaining;
 		textElements.winsText.textContent = this.wins ;
 		this.lettersGuessed = []; textElements.lettersGuessedText.textContent = "none";
@@ -91,6 +92,13 @@ function drawStickMan(x) {
 	if (typeof targetDiv !== "null") targetDiv.classList.remove("invisible");
 }
 
+function clearStickMan() {
+	stickManIds.forEach(function(x) {
+		if (!document.getElementById(x).classList.contains("invisible")) document.getElementById(x).classList.add("invisible");
+	}
+)}
+
+
 game.initializeValues();
 document.onkeyup = function(event) {
 	if (event.which == 113) { textElements.hintText.textContent = game.currentHint; }
@@ -100,7 +108,7 @@ document.onkeyup = function(event) {
 	if ("abcdefghijklmnopqrstuvwxyz".includes(userGuess)) {  //then the keypress was a letter
 		if (!game.lettersGuessed.includes(userGuess) && !game.revealedWordArray.includes(userGuess)) { //userGuess isn't in either lettersGuessed or revealedWordArray
 				var ind = getAllIndexes(game.currentWord, userGuess) ; //check if userguess is in the current word
-				if (ind.length != 0) {  //then it is in current word
+				if (ind.length > 0) {  //then it is in current word
 					for (var x = 0; x < ind.length; x++) {
 						game.updateRevealedWordArray(ind[x], userGuess);
 					}
